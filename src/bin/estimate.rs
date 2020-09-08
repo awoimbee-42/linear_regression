@@ -1,6 +1,6 @@
 use clap::{App, Arg};
-use std::error::Error;
 use ft_linear_regression::estimator;
+use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
     let arg_matches = App::new("estimate")
@@ -10,7 +10,11 @@ fn main() -> Result<(), Box<dyn Error>> {
         .arg(Arg::with_name("mileage (in km)").required(true))
         .get_matches();
 
-    let mileage = match arg_matches.value_of("mileage (in km)").unwrap().parse::<usize>() {
+    let mileage = match arg_matches
+        .value_of("mileage (in km)")
+        .unwrap()
+        .parse::<usize>()
+    {
         Ok(i) => i as f64,
         _ => return Err("Could not parse the mileage value into a valid integer".into()),
     };
@@ -18,6 +22,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let estimator = estimator::Estimator::new()?;
     let estimated_price = estimator.estimate(mileage);
 
-    println!("This car has done {}km, its estimated value is {}", mileage, estimated_price);
+    println!(
+        "This car has done {}km, its estimated value is {}",
+        mileage, estimated_price
+    );
     Ok(())
 }
