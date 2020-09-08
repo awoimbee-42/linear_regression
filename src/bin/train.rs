@@ -71,7 +71,7 @@ fn gradient_descent(
         let new_t1 = t1 - (dt1 / miles_n_prices.len() as f64 * learning_rate);
         // Bold driver:
         let loss = loss(new_t0, new_t1, miles_n_prices);
-        if i % (iterations / 10).max(1) == 0 {
+        if i % (iterations / 10).max(1) == 0 || i == iterations - 1 {
             println!(
                 "epoch {} - loss: {:.8} - learning rate: {}",
                 i, loss, learning_rate
