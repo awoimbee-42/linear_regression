@@ -59,27 +59,27 @@ fn main() -> Result<(), Box<dyn Error>> {
     .sqrt();
 
     println!(
-        "mean absolute error (MAE):                  {}",
+        "mean absolute error (MAE):                  {:.4}",
         mean_absolute_err
     );
     println!(
-        "normalized mean absolute error (nMAE):      {}",
+        "normalized mean absolute error (nMAE):      {:.4}",
         mean_absolute_err / (estimator.max_price() - estimator.min_price())
     );
     println!(
-        "root mean squared error (RMSE):             {}",
+        "root mean squared error (RMSE):             {:.4}",
         root_mean_sqr_err
     );
     println!(
-        "normalized root mean squared error (nRMSE): {}",
+        "normalized root mean squared error (nRMSE): {:.4}",
         root_mean_sqr_err / (estimator.max_price() - estimator.min_price())
     );
     println!(
-        "relative absolute error (RAE):              {}",
+        "relative absolute error (RAE):              {:.4}",
         relative_abs_err
     );
     println!(
-        "root relative squared error (RRSE):         {}",
+        "root relative squared error (RRSE):         {:.4}",
         root_rel_sqr_err
     );
 
