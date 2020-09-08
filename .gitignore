@@ -1,3 +1,6 @@
 /target
 /training_results.svg
 thetas.csv
+/accuracy
+/estimate
+/train
