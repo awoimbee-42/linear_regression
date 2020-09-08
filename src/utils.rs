@@ -42,7 +42,7 @@ where
 }
 
 /// Reads `data.csv` and returns (kilometers, prices)
-pub fn read_data() -> Result<(Vec<f64>, Vec<f64>), Box<dyn Error>> {
+pub fn read_data_csv() -> Result<(Vec<f64>, Vec<f64>), Box<dyn Error>> {
     let mut kilometers = Vec::new();
     let mut prices = Vec::new();
 
