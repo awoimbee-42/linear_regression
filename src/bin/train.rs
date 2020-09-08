@@ -62,21 +62,27 @@ fn gradient_descent(
         let (dt0, dt1) = {
             let (mut dt0, mut dt1) = (0., 0.);
             for (m, p) in miles_n_prices.iter() {
-                dt0 += (t1 * m + t0) - p;
-                dt1 += ((t1 * m + t0) - p) * m;
+                dt0 += (t0 + t1 * m) - p;
+                dt1 += ((t0 + t1 * m) - p) * m;
             }
             (dt0, dt1)
         };
         let new_t0 = t0 - (dt0 / miles_n_prices.len() as f64 * learning_rate);
         let new_t1 = t1 - (dt1 / miles_n_prices.len() as f64 * learning_rate);
-        // Bold driver:
+
         let loss = loss(new_t0, new_t1, miles_n_prices);
-        if i % (iterations / 10).max(1) == 0 || i == iterations - 1 {
+        if i % (iterations / 10).max(1) == 0 {
             println!(
                 "epoch {} - loss: {:.8} - learning rate: {}",
                 i, loss, learning_rate
             );
         }
+        // Early exit:
+        if loss == old_loss {
+            println!("Early exit (iteration {}): loss is stagnating", i);
+            break;
+        }
+        // Bold driver:
         if loss > old_loss {
             learning_rate *= 0.5;
             continue;
@@ -86,6 +92,7 @@ fn gradient_descent(
         t0 = new_t0;
         t1 = new_t1;
     }
+    println!("final loss: {}", old_loss);
     (t0, t1)
 }
 
