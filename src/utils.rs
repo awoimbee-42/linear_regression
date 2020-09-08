@@ -15,23 +15,7 @@ where
     (elem * (max - min)) + min
 }
 
-pub fn min_max<T>(data: &[T]) -> (T, T)
-where
-    T: float::Float,
-{
-    let mut min = T::max_value();
-    let mut max = T::min_value();
-    for &d in data {
-        if d < min {
-            min = d;
-        } else if d > max {
-            max = d;
-        }
-    }
-    (min, max)
-}
-
-pub fn normalize_data<T>(data: &mut Vec<(T, T)>)
+pub fn min_max<T>(data: &[(T, T)]) -> ((T, T), (T, T))
 where
     T: float::Float,
 {
@@ -54,6 +38,14 @@ where
             max1 = *d1;
         }
     }
+    ((min0, max0), (min1, max1))
+}
+
+pub fn normalize_data<T>(data: &mut Vec<(T, T)>)
+where
+    T: float::Float,
+{
+    let ((min0, max0), (min1, max1)) = min_max(&data);
     for (d0, d1) in data.iter_mut() {
         *d0 = normalize_elem(*d0, min0, max0);
         *d1 = normalize_elem(*d1, min1, max1);
